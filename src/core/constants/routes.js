@@ -7,11 +7,11 @@ import ManageProduct from "../../pages/admin/features/manage-product/manage-prod
 import TodoList from "../../pages/admin/features/Todo/todo-list";
 export const ROUTES = createBrowserRouter([
     {
-        path: '',
+        path: 'login',
         element: <Login />
     },
     {
-        path: 'admin',
+        path: '/',
         element: <Admin />,
         children: [
             {
