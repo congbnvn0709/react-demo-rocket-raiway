@@ -1,10 +1,24 @@
-import { Col, Row, Form, Input, Button, Select, Table } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import { COLUMN } from "./colums";
+import {
+  Col,
+  Row,
+  Form,
+  Input,
+  Button,
+  Select,
+  Table,
+  Pagination,
+  Space,
+} from "antd";
+import {
+  SearchOutlined,
+  EyeOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import "./product.css";
 import productService from "../../../../services/productService";
 import { Utils } from "../../../../core/utils/function";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function ManageProduct() {
   const listProductType = [
     { key: "PHONE", name: "Điện thoại" },
@@ -12,20 +26,57 @@ function ManageProduct() {
     { key: "CLOTHES", name: "Quần áo" },
     { key: "FOOT_WEAR", name: "Giày dép" },
   ];
+  const COLUMN = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Price",
+      dataIndex: "priceStr",
+      key: "priceStr",
+    },
+    {
+      title: "Product Type",
+      dataIndex: "productType",
+      key: "productType",
+    },
+    {
+      title: "Action",
+      key: "Action",
+      render: (_, record) => {
+        return (
+          <Space size="middle">
+            <EyeOutlined
+              style={{ cursor: "pointer" }}
+              onClick={(item) => onDetail(record)}
+            />
+            <EditOutlined
+              style={{ cursor: "pointer" }}
+              onClick={(item) => onDetail(record)}
+            />
+            <DeleteOutlined
+              style={{ cursor: "pointer" }}
+              onClick={(item) => onDetail(record)}
+            />
+          </Space>
+        );
+      },
+    },
+  ];
 
   const [form] = Form.useForm();
   const [dataSource, setDataSource] = useState([]);
   const [totalElement, setTotalElement] = useState([]);
-  const handleChange = (e) => {
-    console.log(e);
-    console.log(form.getFieldsValue("productType"));
-  };
+  const [page, setPage] = useState(1);
+  const [rowPerPage, setRowPerPage] = useState(5);
 
   const handleSearch = async (form) => {
     const body = {
       ...form,
-      page: 1,
-      size: 5,
+      page: page,
+      size: rowPerPage,
       sortField: "id",
       sortType: "desc",
     };
@@ -39,6 +90,27 @@ function ManageProduct() {
     setDataSource(dataMap);
     setTotalElement(totalElements);
   };
+  const changePage = (page, pageSize) => {
+    if (pageSize !== rowPerPage) {
+      setPage(1);
+    } else {
+      setPage(page);
+    }
+    setRowPerPage(pageSize);
+  };
+
+  const onDetail = (item) => {
+    console.log(item);
+  };
+  const onEdit = (item) => {
+    console.log(item);
+  };
+  const onDelete = (item) => {
+    console.log(item);
+  };
+  useEffect(() => {
+    handleSearch(form);
+  }, [rowPerPage, page]);
   return (
     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} wrap>
       <Form
@@ -62,7 +134,6 @@ function ManageProduct() {
                 width: "100%",
               }}
               placeholder="Please select"
-              onChange={handleChange}
               fieldNames={{ label: "name", value: "key" }}
               options={listProductType}
               maxTagCount="responsive"
@@ -71,7 +142,12 @@ function ManageProduct() {
         </Col>
         <Col span={8}>
           <Form.Item>
-            <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              icon={<SearchOutlined />}
+              onClick={() => setPage(1)}
+            >
               Search
             </Button>
           </Form.Item>
@@ -79,11 +155,57 @@ function ManageProduct() {
       </Form>
       <Table
         className="custom-table"
-        columns={COLUMN}
         dataSource={dataSource}
         rowKey="id"
-        pagination={{ total: totalElement, pageSizeOptions: [5, 10, 15, 20] }}
-      ></Table>
+        columns={COLUMN}
+        scroll={{
+          y: 350,
+        }}
+        pagination={{
+          total: totalElement,
+          showSizeChanger: true,
+          current: page,
+          defaultPageSize: rowPerPage,
+          pageSizeOptions: [5, 10, 15],
+          onChange: (page, rowPerPage) => changePage(page, rowPerPage),
+        }}
+      >
+        {/* <Table.Column key="name" title="Name" dataIndex="name"></Table.Column>
+        <Table.Column
+          key="priceStr"
+          title="Price"
+          dataIndex="priceStr"
+        ></Table.Column>
+        <Table.Column
+          key="productType"
+          title="Product Type"
+          dataIndex="productType"
+        ></Table.Column>
+        <Table.Column
+          key="action"
+          title="Action"
+          dataIndex="action"
+          align="center"
+          render={(_, record) => {
+            return (
+              <Space size="middle">
+                <EyeOutlined
+                  style={{ cursor: "pointer" }}
+                  onClick={(item) => onDetail(record)}
+                />
+                <EditOutlined
+                  style={{ cursor: "pointer" }}
+                  onClick={(item) => onEdit(record)}
+                />
+                <DeleteOutlined
+                  style={{ cursor: "pointer" }}
+                  onClick={(item) => onDelete(record)}
+                />
+              </Space>
+            );
+          }}
+        ></Table.Column> */}
+      </Table>
     </Row>
   );
 }

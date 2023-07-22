@@ -22,11 +22,10 @@ function Admin() {
   } = theme.useToken();
 
   const changeMenu = (e) => {
-    console.log(e);
     navigate(e.key);
   };
   return (
-    <Layout>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         trigger={null}
         collapsible
