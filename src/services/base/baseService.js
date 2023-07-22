@@ -1,3 +1,4 @@
+import { showMessage } from '../../core/helpers/showMessage';
 import interceptAuth from './axiosClient';
 
 // import { showMessage } from '../utils/helper/showMessage';
@@ -14,7 +15,7 @@ const baseService = {
             return data;
         } catch (error) {
             const { message } = error.message;
-            // showMessage.error(message);
+            showMessage.error(message);
             throw new Error(message);
         }
     },
@@ -25,21 +26,21 @@ const baseService = {
             return data;
         } catch (error) {
             const { message } = error.message;
-            // showMessage.error(message);
+            showMessage.error(message);
             throw new Error(message);
         }
     },
     put: async (url = '', body, params) => {
         try {
             const { data } = await instance.put(url, body, { params });
-            // const { message, status } = data;
+            // const { message } = data;
             // if (status === API_SUCCESS_STATUS && message) {
             //   showMessage.success(message);
             // }
             return data;
         } catch (error) {
             const { message } = error.message;
-            // showMessage.error(message);
+            showMessage.error(message);
             throw new Error(message);
         }
     },
@@ -54,7 +55,7 @@ const baseService = {
             return data;
         } catch (error) {
             const { message } = error.message;
-            // showMessage.error(message);
+            showMessage.error(message);
             throw new Error(message);
         }
     },
@@ -75,7 +76,7 @@ const baseService = {
                 })
                 .catch(async (error) => {
                     const responseObj = await error.response.data.text();
-                    // showMessage.error(JSON.parse(responseObj).message);
+                    showMessage.error(JSON.parse(responseObj).message);
                 });
         }),
 
@@ -85,7 +86,7 @@ const baseService = {
             return data;
         } catch (error) {
             const { message } = error.response.data;
-            // showMessage.error(message);
+            showMessage.error(message);
             throw new Error(message);
         }
     },
@@ -96,7 +97,7 @@ const baseService = {
             return data;
         } catch (error) {
             const { message } = error.response.data;
-            // showMessage.error(message);
+            showMessage.error(message);
             throw new Error(message);
         }
     },

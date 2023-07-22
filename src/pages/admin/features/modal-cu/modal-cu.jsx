@@ -39,14 +39,21 @@ function ModalCU(props) {
     <Modal
       title={productId ? "Update Product" : "Create Product"}
       open={isModalOpen}
+      onCancel={handleCancel}
       footer={[
         <Button onClick={handleCancel}>Cancel</Button>,
-        <Button onClick={handleOk} type="primary">
+        <Button onClick={handleOk} type="primary" htmlType="submit">
           Save
         </Button>,
       ]}
     >
-      <Form form={form} layout="vertical" size="large">
+      <Form
+        form={form}
+        layout="vertical"
+        size="large"
+        autoComplete="off"
+        onFinish={doSaveData}
+      >
         <Form.Item label="Product Name" name="name" required>
           <Input></Input>
         </Form.Item>
