@@ -8,17 +8,22 @@ import {
   Table,
   Pagination,
   Space,
+  Modal,
 } from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
   DeleteOutlined,
+  PlusOutlined,
   EditOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 import "./product.css";
 import productService from "../../../../services/productService";
 import { Utils } from "../../../../core/utils/function";
 import { useEffect, useState } from "react";
+import ProductDetail from "../product-detail/product-detail";
+import ModalCU from "../modal-cu/modal-cu";
 function ManageProduct() {
   const listProductType = [
     { key: "PHONE", name: "Điện thoại" },
@@ -54,11 +59,11 @@ function ManageProduct() {
             />
             <EditOutlined
               style={{ cursor: "pointer" }}
-              onClick={(item) => onDetail(record)}
+              onClick={(item) => onEdit(record)}
             />
             <DeleteOutlined
               style={{ cursor: "pointer" }}
-              onClick={(item) => onDetail(record)}
+              onClick={(item) => onDelete(record)}
             />
           </Space>
         );
@@ -71,6 +76,10 @@ function ManageProduct() {
   const [totalElement, setTotalElement] = useState([]);
   const [page, setPage] = useState(1);
   const [rowPerPage, setRowPerPage] = useState(5);
+  const [openDetail, setOpenDetail] = useState(false);
+  const [isOpenCU, setOpenCU] = useState(false);
+  const [dataDetail, setDataDetail] = useState({});
+  const [productId, setProductId] = useState(null);
 
   const handleSearch = async (form) => {
     const body = {
@@ -100,14 +109,29 @@ function ManageProduct() {
   };
 
   const onDetail = (item) => {
-    console.log(item);
+    setOpenDetail(true);
+    setDataDetail(item);
   };
   const onEdit = (item) => {
-    console.log(item);
+    setOpenCU(true);
+    setProductId(item.id);
   };
   const onDelete = (item) => {
     console.log(item);
+    const { confirm } = Modal;
+    confirm({
+      title: "Do you Want to delete these items?",
+      icon: <ExclamationCircleFilled />,
+      // content: 'Some descriptions',ks
+      onOk() {
+        console.log("OK");
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
   };
+
   useEffect(() => {
     handleSearch(form);
   }, [rowPerPage, page]);
@@ -153,6 +177,14 @@ function ManageProduct() {
           </Form.Item>
         </Col>
       </Form>
+      <Button
+        icon={<PlusOutlined />}
+        type="primary"
+        style={{ marginBottom: "10px" }}
+        onClick={() => setOpenCU(true)}
+      >
+        Add
+      </Button>
       <Table
         className="custom-table"
         dataSource={dataSource}
@@ -168,44 +200,25 @@ function ManageProduct() {
           defaultPageSize: rowPerPage,
           pageSizeOptions: [5, 10, 15],
           onChange: (page, rowPerPage) => changePage(page, rowPerPage),
+          showTotal: (total, range) =>
+            `${range[0]}-${range[1]} of ${total} items`,
         }}
-      >
-        {/* <Table.Column key="name" title="Name" dataIndex="name"></Table.Column>
-        <Table.Column
-          key="priceStr"
-          title="Price"
-          dataIndex="priceStr"
-        ></Table.Column>
-        <Table.Column
-          key="productType"
-          title="Product Type"
-          dataIndex="productType"
-        ></Table.Column>
-        <Table.Column
-          key="action"
-          title="Action"
-          dataIndex="action"
-          align="center"
-          render={(_, record) => {
-            return (
-              <Space size="middle">
-                <EyeOutlined
-                  style={{ cursor: "pointer" }}
-                  onClick={(item) => onDetail(record)}
-                />
-                <EditOutlined
-                  style={{ cursor: "pointer" }}
-                  onClick={(item) => onEdit(record)}
-                />
-                <DeleteOutlined
-                  style={{ cursor: "pointer" }}
-                  onClick={(item) => onDelete(record)}
-                />
-              </Space>
-            );
-          }}
-        ></Table.Column> */}
-      </Table>
+      ></Table>
+      {openDetail ? (
+        <ProductDetail
+          isOpenDetail={openDetail}
+          setOpenDetail={setOpenDetail}
+          dataProduct={dataDetail}
+        />
+      ) : null}
+      {isOpenCU ? (
+        <ModalCU
+          isModalOpen={isOpenCU}
+          setModalOpen={setOpenCU}
+          productId={productId}
+          setProductId={setProductId}
+        />
+      ) : null}
     </Row>
   );
 }

@@ -18,7 +18,7 @@ const interceptAuth = (
     });
 
     instance.interceptors.request.use((cf) => {
-        const token = localStorage.getItem("accessToken");
+        const token = localStorage.getItem("auth");
         if (token && cf?.headers) {
             cf.headers['Authorization'] = 'Bearer ' + token;
         }
@@ -33,7 +33,7 @@ const interceptAuth = (
             if (error.response.status === 401) {
                 // showMessage.error('Phiên bản đăng nhập hết hạn!');
                 localStorage.clear();
-                // window.location.href = `#${path.login}`;
+                window.location.href = `login`;
             }
             if (error.response.status === 403) {
                 // showMessage.error('Người dùng không có quyền truy cập chức năng này');
