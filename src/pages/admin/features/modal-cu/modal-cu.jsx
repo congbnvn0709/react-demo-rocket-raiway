@@ -2,6 +2,7 @@ import { Button, Form, Input, Modal, Select } from "antd";
 import { useEffect } from "react";
 import productService from "../../../../services/productService";
 import "./modal-cu-css.css";
+import { showMessage } from "../../../../core/helpers/showMessage";
 function ModalCU(props) {
   const listProductType = [
     { key: "PHONE", name: "Điện thoại" },
@@ -10,8 +11,10 @@ function ModalCU(props) {
     { key: "FOOT_WEAR", name: "Giày dép" },
   ];
   const [form] = Form.useForm();
-  const { isModalOpen, setModalOpen, productId, setProductId } = props;
-  const handleOk = () => {};
+  const { isModalOpen, setModalOpen, productId, setProductId, setPage } = props;
+  const handleOk = () => {
+    doSaveData(form.getFieldsValue());
+  };
   const handleCancel = () => {
     setModalOpen(false);
     setProductId(null);
@@ -30,6 +33,12 @@ function ModalCU(props) {
     } else {
       await productService.createProduct(body);
     }
+    showMessage.success(
+      `${productId ? "Update" : "Create"} product successfully`
+    );
+    // handleSearch({ page: 1 });
+    setPage(1);
+    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -42,7 +51,7 @@ function ModalCU(props) {
       onCancel={handleCancel}
       footer={[
         <Button onClick={handleCancel}>Cancel</Button>,
-        <Button onClick={handleOk} type="primary" htmlType="submit">
+        <Button onClick={handleOk} type="primary">
           Save
         </Button>,
       ]}

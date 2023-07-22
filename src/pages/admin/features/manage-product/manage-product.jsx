@@ -24,6 +24,7 @@ import { Utils } from "../../../../core/utils/function";
 import { useEffect, useState } from "react";
 import ProductDetail from "../product-detail/product-detail";
 import ModalCU from "../modal-cu/modal-cu";
+import { showMessage } from "../../../../core/helpers/showMessage";
 function ManageProduct() {
   const listProductType = [
     { key: "PHONE", name: "Điện thoại" },
@@ -83,11 +84,11 @@ function ManageProduct() {
 
   const handleSearch = async (form) => {
     const body = {
-      ...form,
       page: page,
       size: rowPerPage,
-      sortField: "id",
+      sortField: "createDate",
       sortType: "desc",
+      ...form,
     };
 
     const { content, totalElements } = await productService.searchProduct(body);
@@ -117,21 +118,23 @@ function ManageProduct() {
     setProductId(item.id);
   };
   const onDelete = (item) => {
-    console.log(item);
     const { confirm } = Modal;
     confirm({
       title: "Do you Want to delete these items?",
       icon: <ExclamationCircleFilled />,
       // content: 'Some descriptions',ks
       onOk() {
-        console.log("OK");
+        deleteItem(item);
       },
-      onCancel() {
-        console.log("Cancel");
-      },
+      centered: true,
     });
   };
 
+  const deleteItem = async (item) => {
+    const res = await productService.deleteProduct(item.id);
+    showMessage.success("Delete item success");
+    setPage(1);
+  };
   useEffect(() => {
     handleSearch(form);
   }, [rowPerPage, page]);
@@ -217,6 +220,7 @@ function ManageProduct() {
           setModalOpen={setOpenCU}
           productId={productId}
           setProductId={setProductId}
+          setPage={setPage}
         />
       ) : null}
     </Row>
