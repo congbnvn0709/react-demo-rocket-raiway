@@ -1,8 +1,8 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import { useEffect } from "react";
-import productService from "../../../../services/productService";
+import productService from "../../../../../services/productService";
 import "./modal-cu-css.css";
-import { showMessage } from "../../../../core/helpers/showMessage";
+import { showMessage } from "../../../../../core/helpers/showMessage";
 function ModalCU(props) {
   const listProductType = [
     { key: "PHONE", name: "Điện thoại" },

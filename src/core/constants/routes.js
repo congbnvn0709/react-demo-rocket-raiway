@@ -4,7 +4,7 @@ import {
 import Login from "../../pages/login/login";
 import Admin from "../../pages/admin/admin";
 import ManageProduct from "../../pages/admin/features/manage-product/manage-product";
-import TodoList from "../../pages/admin/features/Todo/todo-list";
+import TodoListDemo from "../../pages/admin/features/TodoList/todo-list";
 export const ROUTES = createBrowserRouter([
     {
         path: 'login',
@@ -16,11 +16,12 @@ export const ROUTES = createBrowserRouter([
         children: [
             {
                 path: 'manage-product',
+                index: true,
                 element: < ManageProduct />
             },
             {
                 path: 'todo',
-                element: <TodoList />
+                element: <TodoListDemo />
             }
         ]
     },

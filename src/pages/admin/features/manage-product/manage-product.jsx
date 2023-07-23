@@ -22,8 +22,8 @@ import "./product.css";
 import productService from "../../../../services/productService";
 import { Utils } from "../../../../core/utils/function";
 import { useEffect, useState } from "react";
-import ProductDetail from "../product-detail/product-detail";
-import ModalCU from "../modal-cu/modal-cu";
+import ProductDetail from "./product-detail/product-detail";
+import ModalCU from "./modal-cu/modal-cu";
 import { showMessage } from "../../../../core/helpers/showMessage";
 function ManageProduct() {
   const listProductType = [

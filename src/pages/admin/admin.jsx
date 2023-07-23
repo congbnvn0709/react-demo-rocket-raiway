@@ -1,8 +1,14 @@
 import { Button, Layout, Menu, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content, Header } from "antd/es/layout/layout";
-import React, { useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -11,12 +17,13 @@ import {
 } from "@ant-design/icons";
 function Admin() {
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
+  const { pathname } = useLocation();
+  console.log(pathname);
   const auth = localStorage.getItem("auth");
   if (!auth) {
     return <Navigate to={"/login"} />;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [collapsed, setCollapsed] = React.useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -36,16 +43,16 @@ function Admin() {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["manage-product"]}
+          defaultSelectedKeys={[pathname]}
           onClick={changeMenu}
           items={[
             {
-              key: "manage-product",
+              key: "/manage-product",
               icon: <WindowsOutlined />,
               label: "Manage Products",
             },
             {
-              key: "todo",
+              key: "/todo",
               icon: <VideoCameraOutlined />,
               label: "Todo List",
             },
