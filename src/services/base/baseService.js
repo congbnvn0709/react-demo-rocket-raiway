@@ -1,49 +1,103 @@
-import axios from 'axios';
-import queryString from 'query-string';
-import { showMessage } from '../utils/helper/showMessage';
+import { showMessage } from '../../core/helpers/showMessage';
+import interceptAuth from './axiosClient';
 
-const interceptAuth = (
-    contentType = 'application/json',
-    responseType = 'json'
-) => {
-    const instance = axios.create({
-        baseURL: process.env.REACT_APP_API_URL,
-        headers: {
-            'Accept-Language': 'en-US',
-            'Content-Type': contentType,
-        },
-        responseType,
-        paramsSerializer: {
-            serialize: (params) => queryString.stringify(params),
-        }
-    });
+const instanceDownloadFile = interceptAuth('application/json', 'blob');
+const instanceFormData = interceptAuth('multipart/form-data');
+const instance = interceptAuth();
 
-    instance.interceptors.request.use((cf) => {
-        const token = localStorage.getItem("accessToken");
-        if (token && cf?.headers) {
-            cf.headers['Authorization'] = 'Bearer ' + token;
+const baseService = {
+    get: async (url = '', params) => {
+        try {
+            const { data } = await instance.get(url, { params });
+            return data;
+        } catch (error) {
+            const { message } = error.message;
+            showMessage.error(message);
+            throw new Error(message);
         }
-        return cf;
-    });
-    instance.interceptors.response.use(
-        (response) => {
-            // Do something with response data
-            return response;
-        },
-        (error) => {
-            if (error.response.status === 401) {
-                showMessage.error('Phiên bản đăng nhập hết hạn!');
-                localStorage.clear();
-                // window.location.href = `#${path.login}`;
-            }
-            if (error.response.status === 403) {
-                showMessage.error('Người dùng không có quyền truy cập chức năng này');
-            }
-            // Do something with response error
-            return Promise.reject(error);
+    },
+
+    post: async (url = '', body, params) => {
+        try {
+            const { data } = await instance.post(url, body, { params });
+            return data;
+        } catch (error) {
+            const { message } = error.message;
+            showMessage.error(message);
+            throw new Error(message);
         }
-    );
-    return instance;
+    },
+    put: async (url = '', body, params) => {
+        try {
+            const { data } = await instance.put(url, body, { params });
+            // const { message } = data;
+            // if (status === API_SUCCESS_STATUS && message) {
+            //   showMessage.success(message);
+            // }
+            return data;
+        } catch (error) {
+            const { message } = error.message;
+            showMessage.error(message);
+            throw new Error(message);
+        }
+    },
+
+    delete: async (url = '', params) => {
+        try {
+            const { data } = await instance.delete(url, { params });
+            // const { message, status } = data;
+            // if (status === API_SUCCESS_STATUS && message) {
+            //   showMessage.success(message);
+            // }
+            return data;
+        } catch (error) {
+            const { message } = error.message;
+            showMessage.error(message);
+            throw new Error(message);
+        }
+    },
+
+    downloadFile: (url = '', fileName = '') =>
+        new Promise(async (resolve, reject) => {
+            await instanceDownloadFile
+                .get(url)
+                .then((response) => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', fileName);
+                    document.body.appendChild(link);
+                    link.click();
+
+                    resolve(response.data);
+                })
+                .catch(async (error) => {
+                    const responseObj = await error.response.data.text();
+                    showMessage.error(JSON.parse(responseObj).message);
+                });
+        }),
+
+    postFile: async (url = '', body) => {
+        try {
+            const { data } = await instanceFormData.post(url, body);
+            return data;
+        } catch (error) {
+            const { message } = error.response.data;
+            showMessage.error(message);
+            throw new Error(message);
+        }
+    },
+
+    putFile: async (url = '', body) => {
+        try {
+            const { data } = await instanceFormData.put(url, body);
+            return data;
+        } catch (error) {
+            const { message } = error.response.data;
+            showMessage.error(message);
+            throw new Error(message);
+        }
+    },
 };
 
-export default interceptAuth;
+export default baseService;
