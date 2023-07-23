@@ -12,7 +12,6 @@ const listTodoSlice = createSlice({
         },
         toggleTodoStatus: (state, action) => {
             const currentTodo = state.find(todo => todo.id === action.payload);
-            console.log(currentTodo);
             currentTodo.completed = !currentTodo.completed
         }
     }
