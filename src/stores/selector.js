@@ -1,3 +1,4 @@
+import { createDraftSafeSelector } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 
 //GET LIST TODO
@@ -9,7 +10,7 @@ export const statusSearchSelector = (state) => state.filters.status;
 //GET PRIORITY SEARCh
 export const prioritySelector = (state) => state.filters.priority;
 
-export const todoRemainingSelector = createSelector(
+export const todoRemainingSelector = createDraftSafeSelector(
     todoList,
     searchTextSelector,
     statusSearchSelector,
