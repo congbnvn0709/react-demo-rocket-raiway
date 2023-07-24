@@ -19,7 +19,8 @@ const landingSlice = createSlice({
 */
 export function searchProduct(texSearch) {
     return function searchProductThunk(dispacth, getState) {
-        console.log(texSearch)
+        console.log(texSearch);
+        console.log('searchThunk', getState());
     }
 }
 export default landingSlice;
