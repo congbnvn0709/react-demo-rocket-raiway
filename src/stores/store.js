@@ -2,7 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import landingSlice from "../slices/landingSlice";
 
 const store = configureStore({
-    reducer: landingSlice.reducer
+    reducer: {
+        landingPage: landingSlice.reducer
+    }
 })
 
 export default store;
