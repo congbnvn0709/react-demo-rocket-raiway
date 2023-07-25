@@ -1,6 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import { showMessage } from '../utils/helper/showMessage';
+import { showMessage } from '../../core/helpers/showMessage';
 
 const interceptAuth = (
     contentType = 'application/json',

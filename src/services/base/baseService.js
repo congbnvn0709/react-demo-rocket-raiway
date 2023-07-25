@@ -1,5 +1,5 @@
-import { showMessage } from '../../core/helpers/showMessage';
 import interceptAuth from './axiosClient';
+import { showMessage } from '../../core/helpers/showMessage';
 
 const instanceDownloadFile = interceptAuth('application/json', 'blob');
 const instanceFormData = interceptAuth('multipart/form-data');

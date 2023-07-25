@@ -1,0 +1,10 @@
+.content {
+  width: 1200px;
+  margin: auto;
+}
+.content-left {
+  margin-right: 10px;
+}
+.tool-bar {
+  background: rgba(0, 0, 0, 0.04);
+}

@@ -4,6 +4,11 @@ const initialState = {
     search: '',
     status: 'idle',
     lisProduct: [],
+    listCategories: [],
+    listDelivery: [],
+    lisStatus: [],
+    minPrice: '',
+    maxPrice: ''
 }
 const landingSlice = createSlice({
     name: 'landing',
@@ -25,9 +30,16 @@ const landingSlice = createSlice({
     }
 })
 
-export const searchProduct = createAsyncThunk('product/searchProduct', async (body) => {
-    const res = await productService.searchProduct(body);
-    console.log(res);
+export const searchProduct = createAsyncThunk('product/searchProduct', async (value) => {
+    const body = {
+        name: value,
+        page: 1,
+        size: 5,
+        sortField: 'id',
+        sortType: 'DESC'
+    }
+    const { content, totalElements } = await productService.searchProduct(body);
+    // console.log(res);
 })
 
 /**
