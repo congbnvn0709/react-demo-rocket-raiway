@@ -29,3 +29,9 @@
   align-items: center;
   padding-left: 15px;
 }
+
+.footer {
+  padding-top: 20px;
+  border-top: 4px solid rgb(248, 76, 47);
+  background-color: white;
+}

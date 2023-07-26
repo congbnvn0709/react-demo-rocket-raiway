@@ -8,3 +8,12 @@
 .tool-bar {
   background: rgba(0, 0, 0, 0.04);
 }
+.price-content {
+  display: flex;
+  flex-direction: column;
+}
+.img-product {
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+}

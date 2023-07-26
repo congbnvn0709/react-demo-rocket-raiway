@@ -1,45 +1,64 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productService from "../services/productService";
+
 const initialState = {
-    search: '',
-    status: 'idle',
+    name: '',
+    loading: 'idle',
     lisProduct: [],
-    listCategories: [],
-    listDelivery: [],
-    lisStatus: [],
+    productType: [],
+    shippingUnit: [],
+    status: [],
     minPrice: '',
-    maxPrice: ''
+    maxPrice: '',
+    page: 1,
+    totalElements: 0,
+    sortType: 'DESC',
+    sortField: 'id'
 }
 const landingSlice = createSlice({
     name: 'landing',
     initialState,
     reducers: {
-        searchProduct: (state, action) => {
-            state.lisProduct = state.lisProduct.filter(item => item.name === action.payload);
+        searchTextProduct: (state, action) => {
+            state.name = action.payload;
+        },
+        sortProduct: (state, action) => {
+            const { sortField, sortType } = action.payload;
+            state.sortField = sortField
+            state.sortType = sortType;
+        },
+        filterByListCheck: (state, action) => {
+            const { filterBy, value } = action.payload;
+            state[filterBy] = value;
+        },
+        filterByPrice: (state, action) => {
+            const { priceName, value } = action.payload;
+            state[priceName] = value;
+        },
+        onPageChange: (state, action) => {
+            state.page = action.payload;
+        },
+        resetFilter: () => {
+            return initialState
         }
     },
     extraReducers: builder => {
         builder.addCase(searchProduct.pending, (state, action) => {
-            state.status = 'loading';
+            state.loading = 'loading';
         }).addCase(searchProduct.fulfilled, (state, action) => {
-            state.lisProduct = action.payload;
-            state.status = 'idle';
+            state.loading = 'idle';
+            state.lisProduct = action.payload.content;
+            state.totalElements = action.payload.totalElements;
         })
         // TODO:dựa vào status để phía UI biết được những request đang được request hay thành công
         //  TODO: dựa vào status để thêm icon loading
     }
 })
+export const { searchTextProduct, sortProduct, filterByListCheck, filterByPrice, onPageChange } = landingSlice.actions;
 
-export const searchProduct = createAsyncThunk('product/searchProduct', async (value) => {
-    const body = {
-        name: value,
-        page: 1,
-        size: 5,
-        sortField: 'id',
-        sortType: 'DESC'
-    }
+export const searchProduct = createAsyncThunk('product/searchProduct', async (body) => {
     const { content, totalElements } = await productService.searchProduct(body);
-    // console.log(res);
+    return { content, totalElements }
 })
 
 /**

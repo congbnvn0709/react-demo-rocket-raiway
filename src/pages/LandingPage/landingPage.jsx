@@ -1,15 +1,50 @@
 import { Affix, Badge, Col, Input, Layout, Row } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
-import React, { startTransition, useCallback } from "react";
-import { searchProduct } from "../../slices/landingSlice";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { searchProduct, searchTextProduct } from "../../slices/landingSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartOutlined, SearchOutlined } from "@ant-design/icons";
 import ListProduct from "./ListProduct/listProduct";
 import "./landing.css";
+import { filterSelector } from "../../selectors/filterSelector";
+import FooterLanding from "./Footer/FooterLanding";
+
 function LandingPage() {
+  const {
+    productType,
+    shippingUnit,
+    status,
+    minPrice,
+    maxPrice,
+    name,
+    page,
+    sortType,
+    sortField,
+  } = useSelector(filterSelector);
+
   const dispatch = useDispatch();
-  const handleSearch = (e) => {
-    dispatch(searchProduct(e.target.value));
+
+  const handleSearchTextChange = (e) => {
+    dispatch(searchTextProduct(e.target.value));
+  };
+  useEffect(() => {
+    handleSearch();
+  }, [sortField, sortType, page]);
+
+  const handleSearch = () => {
+    const body = {
+      name,
+      productType,
+      shippingUnit,
+      status,
+      minPrice,
+      maxPrice,
+      page,
+      size: 6,
+      sortField,
+      sortType,
+    };
+    dispatch(searchProduct(body));
   };
   return (
     <Layout>
@@ -32,8 +67,14 @@ function LandingPage() {
             <Col span={12}>
               <Input
                 size="large"
-                onChange={handleSearch}
-                suffix={<SearchOutlined />}
+                value={name}
+                onChange={handleSearchTextChange}
+                suffix={
+                  <SearchOutlined
+                    style={{ cursor: "pointer" }}
+                    onClick={handleSearch}
+                  />
+                }
               />
             </Col>
             <Col
@@ -59,7 +100,9 @@ function LandingPage() {
       <Content className="content">
         <ListProduct />
       </Content>
-      {/* <Footer>Footer</Footer> */}
+      <Footer className="footer">
+        <FooterLanding />
+      </Footer>
     </Layout>
   );
 }
