@@ -1,9 +1,10 @@
 import { Col, Row } from "antd";
 import React from "react";
+import "./FooterLanding.css";
 
 const FooterLanding = () => {
   return (
-    <Row wrap style={{ maxWidth: "1200px", margin: "auto" }}>
+    <Row wrap className="footer-content">
       <Col span={6}>
         <h4>CHĂM SÓC KHÁCH HÀNG</h4>
         <p>Trung tâm trợ giúp</p>

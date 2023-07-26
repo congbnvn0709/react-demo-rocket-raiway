@@ -50,6 +50,10 @@ function LandingPage() {
     <Layout>
       <Affix offsetTop={0}>
         <Header className="header">
+          <Row>
+            <Col span={12}></Col>
+            <Col span={12}></Col>
+          </Row>
           <Row className="header-container">
             <Col span={6} className="logo">
               <svg

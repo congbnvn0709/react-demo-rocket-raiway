@@ -24,6 +24,7 @@ import {
   searchProduct,
   sortProduct,
 } from "../../../slices/landingSlice";
+import useResizeScreen from "../../../core/hooks/resizeScreen";
 function ListProduct() {
   const dispatch = useDispatch();
   const {
@@ -42,7 +43,9 @@ function ListProduct() {
 
   const [sortDate, setSortDate] = useState(null);
   const [sortPrice, setSortPrice] = useState(null);
+  const viewPort = useResizeScreen();
 
+  const isTablet = viewPort <= 1204;
   const handleChange = (value) => {
     setSortDate(value);
     setSortPrice(null);
@@ -86,8 +89,8 @@ function ListProduct() {
     dispatch(searchProduct(body));
   };
   return (
-    <Row className="content">
-      <Col span={6} className="content-left">
+    <Row className="content" gutter={isTablet ? 0 : 16}>
+      <Col span={isTablet ? 0 : 6} className="content-left">
         <Card title="Bộ lọc tìm kiếm" bordered={false}>
           <span style={{ fontWeight: 500 }}>Theo danh mục</span>
           <ListCheck listOptions={listCategories} name="productType" />
@@ -129,46 +132,48 @@ function ListProduct() {
           </section>
         </Card>
       </Col>
-      <Col span={17}>
-        <Row>
-          <Col span={24} className="tool-bar">
-            <div style={{ marginRight: 20, marginLeft: 20 }}>Sort By</div>
-            <div style={{ marginRight: 20 }}>
-              <Select
-                placeholder="Date"
-                style={{ width: 150 }}
-                onChange={handleChange}
-                value={sortDate}
-                options={[
-                  { value: "ASC", label: "Old Date" },
-                  { value: "DESC", label: "New Date" },
-                ]}
-                allowClear
-              />
-            </div>
-            <div>
-              <Select
-                placeholder="Price"
-                style={{ width: 150 }}
-                onChange={handleSortPrice}
-                allowClear
-                value={sortPrice}
-                options={[
-                  { value: "ASC", label: "Low to Hight" },
-                  { value: "DESC", label: "Hight to Large" },
-                ]}
-              />
-            </div>
-          </Col>
+      <Col span={isTablet ? 24 : 18} className="md-content">
+        <Row className="tool-bar">
+          <div style={{ marginRight: 20, marginLeft: 20 }}>Sort By</div>
+          <div style={{ marginRight: 20 }}>
+            <Select
+              placeholder="Date"
+              style={{ width: 150 }}
+              onChange={handleChange}
+              value={sortDate}
+              options={[
+                { value: "ASC", label: "Old Date" },
+                { value: "DESC", label: "New Date" },
+              ]}
+              allowClear
+            />
+          </div>
+          <div>
+            <Select
+              placeholder="Price"
+              style={{ width: 150 }}
+              onChange={handleSortPrice}
+              allowClear
+              value={sortPrice}
+              options={[
+                { value: "ASC", label: "Low to Hight" },
+                { value: "DESC", label: "Hight to Large" },
+              ]}
+            />
+          </div>
         </Row>
         <Row wrap style={{ marginTop: 16 }} gutter={[16, 16]}>
           {lisProduct.length
             ? lisProduct.map((item) => (
-                <Col span={8} className="product-list" key={item.id}>
+                <Col
+                  span={isTablet ? 6 : 8}
+                  className="product-list"
+                  key={item.id}
+                >
                   <Card
                     bordered={false}
                     style={{
-                      width: 270,
+                      width: "100%",
                     }}
                   >
                     <img
