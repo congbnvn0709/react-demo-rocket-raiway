@@ -45,7 +45,8 @@ function ListProduct() {
   const [sortPrice, setSortPrice] = useState(null);
   const viewPort = useResizeScreen();
 
-  const isTablet = viewPort <= 1204;
+  const isTablet = viewPort <= 992;
+  const isMobile = viewPort < 600;
   const handleChange = (value) => {
     setSortDate(value);
     setSortPrice(null);
@@ -89,8 +90,8 @@ function ListProduct() {
     dispatch(searchProduct(body));
   };
   return (
-    <Row className="content" gutter={isTablet ? 0 : 16}>
-      <Col span={isTablet ? 0 : 6} className="content-left">
+    <Row className="main-content" gutter={16}>
+      <Col span={isTablet ? 6 : 8} className="content-left">
         <Card title="Bộ lọc tìm kiếm" bordered={false}>
           <span style={{ fontWeight: 500 }}>Theo danh mục</span>
           <ListCheck listOptions={listCategories} name="productType" />
@@ -132,7 +133,8 @@ function ListProduct() {
           </section>
         </Card>
       </Col>
-      <Col span={isTablet ? 24 : 18} className="md-content">
+
+      <Col span={isTablet ? 18 : 16}>
         <Row className="tool-bar">
           <div style={{ marginRight: 20, marginLeft: 20 }}>Sort By</div>
           <div style={{ marginRight: 20 }}>
@@ -162,47 +164,44 @@ function ListProduct() {
             />
           </div>
         </Row>
-        <Row wrap style={{ marginTop: 16 }} gutter={[16, 16]}>
+        <Row wrap gutter={[16, 16]}>
           {lisProduct.length
             ? lisProduct.map((item) => (
                 <Col
-                  span={isTablet ? 6 : 8}
+                  span={isMobile ? 12 : 8}
                   className="product-list"
                   key={item.id}
                 >
-                  <Card
-                    bordered={false}
-                    style={{
-                      width: "100%",
-                    }}
-                  >
+                  <Card bordered={false} style={{ height: "100%" }}>
                     <img
                       src={item.image}
                       alt=""
                       srcSet=""
                       className="img-product"
                     />
-                    <p>Giá: {item.price}</p>
-                    <p>
-                      Tình trạng:&nbsp;
-                      {item.status === "NEW" ? "Mới" : "Đã qua sử dụng"}
-                    </p>
-                    <p>
-                      Đơn vị vận chuyển:{" "}
-                      {
-                        ListDelivery.find(
-                          (el) => el.value === item.shippingUnit
-                        )?.label
-                      }
-                    </p>
-                    <p>
-                      Danh mục:{" "}
-                      {
-                        listCategories.find(
-                          (el) => el.value === item.productType
-                        ).label
-                      }
-                    </p>
+                    <div className="content-card">
+                      <p>Giá: {item.price}</p>
+                      <p>
+                        Tình trạng:&nbsp;
+                        {item.status === "NEW" ? "Mới" : "Đã qua sử dụng"}
+                      </p>
+                      <p>
+                        Đơn vị vận chuyển:{" "}
+                        {
+                          ListDelivery.find(
+                            (el) => el.value === item.shippingUnit
+                          )?.label
+                        }
+                      </p>
+                      <p>
+                        Danh mục:{" "}
+                        {
+                          listCategories.find(
+                            (el) => el.value === item.productType
+                          ).label
+                        }
+                      </p>
+                    </div>
                   </Card>
                 </Col>
               ))
