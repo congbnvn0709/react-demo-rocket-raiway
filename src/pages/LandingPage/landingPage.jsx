@@ -35,7 +35,7 @@ function LandingPage() {
   }, [sortField, sortType, page]);
 
   const handleSearch = () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     const body = {
       name,
       productType,
@@ -49,7 +49,7 @@ function LandingPage() {
       sortType,
     };
     dispatch(searchProduct(body));
-    // setIsLoading(false);
+    setIsLoading(false);
   };
   return (
     <Layout>

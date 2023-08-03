@@ -9,10 +9,10 @@ import { SpinnerProvider } from './components/Spinner/SpinnerProvider';
 function App() {
   return (
     <Provider store={store}>
-      {/* <SpinnerProvider> */}
-      <RouterProvider router={routers}>
-      </RouterProvider>
-      {/* </SpinnerProvider> */}
+      <SpinnerProvider>
+        <RouterProvider router={routers}>
+        </RouterProvider>
+      </SpinnerProvider>
     </Provider>
 
   );
