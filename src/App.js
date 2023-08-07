@@ -1,23 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import PropChildren from './PropChildren/PropChildren';
+import { useContext, useState } from 'react';
+import ThemeContextGlobal, { ThemeContext } from './ThemeContext/ThemeContext';
+import useThemeStore from './hooks/ContextHooks';
 
 function App() {
+  const { toggleTheme } = useThemeStore();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={toggleTheme}>Toggle theme</button>
+      {/* <button onClick={toggleTheme}>Toggle theme</button> */}
+      {/* <PropChildren name="child" theme={theme}>
+        <p>Lorem</p>
+      </PropChildren> */}
+      <PropChildren name="child">
+        <p>Lorem</p>
+      </PropChildren>
     </div>
   );
 }
