@@ -11,7 +11,6 @@ root.render(
     <ThemeContextGlobal>
       <App />
     </ThemeContextGlobal>
-
   </React.StrictMode>
 );
 

@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Paragraph from "../Paragraph/Paragraph";
 
 const PropChildren = (props) => {
-  const { theme, children } = props;
+  const { onIncrement } = props;
+
+  useEffect(() => {
+    console.log("render prop children");
+  });
   return (
     <div>
-      <Paragraph theme={theme} />
+      <Paragraph />
+      <button onClick={onIncrement}>Tăng dần</button>
     </div>
   );
 };
 
-export default PropChildren;
+export default React.memo(PropChildren);

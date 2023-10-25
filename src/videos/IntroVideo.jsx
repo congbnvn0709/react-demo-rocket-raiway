@@ -8,7 +8,7 @@ import video from "./introvideo.mp4";
 const IntroVideo = (props, ref) => {
   const videoRef = useRef();
   useEffect(() => {
-    console.log(videoRef.current);
+    console.log("video render");
   });
   useImperativeHandle(ref, () => ({
     play() {
