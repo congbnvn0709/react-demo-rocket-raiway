@@ -7,6 +7,7 @@ const PropChildren = (props) => {
   useEffect(() => {
     console.log("render prop children");
   });
+
   return (
     <div>
       <Paragraph />
