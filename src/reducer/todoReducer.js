@@ -1,9 +1,9 @@
 const initState = {
-    toDoList: []
+    toDoList: [1, 2, 3]
 }
 
 const toDoReducer = (state = initState, action) => {
-    switch (state.type) {
+    switch (action.type) {
         case 'toDoList/add': {
             return {
                 ...state,
