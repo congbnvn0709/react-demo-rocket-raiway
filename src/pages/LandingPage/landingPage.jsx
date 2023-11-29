@@ -28,11 +28,10 @@ function LandingPage() {
 
   const handleSearchTextChange = (val) => {
     dispatch(searchTextProduct(val));
-    handleSearch();
   };
   useEffect(() => {
     handleSearch();
-  }, [sortField, sortType, page]);
+  }, [sortField, sortType, page, name]);
 
   const handleSearch = () => {
     setIsLoading(true);
