@@ -20,8 +20,9 @@ import {
 } from "../../../core/constants/data";
 import {
   filterByPrice,
+  getAllProduct,
   onPageChange,
-  searchProduct,
+  // searchProduct,
   sortProduct,
 } from "../../../slices/landingSlice";
 import useResizeScreen from "../../../core/hooks/resizeScreen";
@@ -87,7 +88,8 @@ function ListProduct() {
       sortField,
       sortType,
     };
-    dispatch(searchProduct(body));
+    // dispatch(searchProduct(body));
+    dispatch(getAllProduct());
   };
   return (
     <Row className="main-content" gutter={16}>

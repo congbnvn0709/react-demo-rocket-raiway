@@ -1,7 +1,7 @@
 import { Affix, Badge, Col, Input, Layout, Row, Spin } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React, { useEffect } from "react";
-import { searchProduct, searchTextProduct } from "../../slices/landingSlice";
+import { getAllProduct, searchTextProduct } from "../../slices/landingSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartOutlined, SearchOutlined } from "@ant-design/icons";
 import ListProduct from "./ListProduct/listProduct";
@@ -47,7 +47,8 @@ function LandingPage() {
       sortField,
       sortType,
     };
-    dispatch(searchProduct(body));
+    // dispatch(searchProduct(body));
+    dispatch(getAllProduct());
     setIsLoading(false);
   };
   return (

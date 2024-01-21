@@ -43,12 +43,14 @@ const landingSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(searchProduct.pending, (state, action) => {
+        builder.addCase(getAllProduct.pending, (state, action) => {
             state.loading = 'loading';
-        }).addCase(searchProduct.fulfilled, (state, action) => {
+        }).addCase(getAllProduct.fulfilled, (state, action) => {
             state.loading = 'idle';
-            state.lisProduct = action.payload.content;
-            state.totalElements = action.payload.totalElements;
+            // state.lisProduct = action.payload.content;
+            // state.totalElements = action.payload.totalElements;
+            state.lisProduct = action.payload;
+            state.totalElements = action.payload.length;
         })
         // TODO:dựa vào status để phía UI biết được những request đang được request hay thành công
         //  TODO: dựa vào status để thêm icon loading
@@ -56,10 +58,13 @@ const landingSlice = createSlice({
 })
 export const { searchTextProduct, sortProduct, filterByListCheck, filterByPrice, onPageChange } = landingSlice.actions;
 
-export const searchProduct = createAsyncThunk('product/searchProduct', async (body) => {
-    const { content, totalElements } = await productService.searchProduct(body);
-    return { content, totalElements }
+export const getAllProduct = createAsyncThunk('product/searchProduct', async () => {
+    // const { content, totalElements } = await productService.getAllProduct();
+    // return { content, totalElements }
+    const res = await productService.getAllProduct();
+    return res;
 })
+
 
 /**
  * Mỗi 1 createAsyncThunk sẽ tạo ra 3 actions tương ứng

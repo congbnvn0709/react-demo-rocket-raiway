@@ -4,7 +4,7 @@ const PRODUCT_URL = "/product";
 
 const productService = {
     getAllProduct() {
-        return baseService.get(`${PRODUCT_URL}/get-all`);
+        return baseService.get(`/Products`);
     },
     createProduct(body) {
         return baseService.post(`${PRODUCT_URL}/create`, body);
