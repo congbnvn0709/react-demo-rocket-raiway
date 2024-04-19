@@ -3,6 +3,16 @@ import { useEffect } from "react";
 import productService from "../../../../../services/productService";
 import "./modal-cu-css.css";
 import { showMessage } from "../../../../../core/helpers/showMessage";
+import { message } from "antd";
+import React, { useState } from "react";
+import UploadFile from "../../../../../components/UploadFile/UploadFile";
+
+const getBase64 = (img, callback) => {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result));
+  reader.readAsDataURL(img);
+};
+
 function ModalCU(props) {
   const listProductType = [
     { key: "PHONE", name: "Điện thoại" },
@@ -12,8 +22,25 @@ function ModalCU(props) {
   ];
   const [form] = Form.useForm();
   const { isModalOpen, setModalOpen, productId, setProductId, setPage } = props;
+  const [fileSelect, setFileSelect] = useState(null);
+
+  const getFileSelect = (fileSelect) => {
+    console.log(fileSelect);
+    setFileSelect(fileSelect);
+    form.setFieldValue("image", fileSelect);
+    form.validateFields();
+    console.log("value", form.getFieldsValue());
+  };
+
   const handleOk = () => {
-    doSaveData(form.getFieldsValue());
+    form.setFieldValue("image", fileSelect);
+    console.log("value", form.getFieldsValue());
+    console.log(form.getFieldsError());
+    console.log(Object.values(form.getFieldsError()));
+    const fieldsError = form.getFieldsError();
+    if (!fieldsError.length) {
+      // doSaveData(form.getFieldsValue());
+    }
   };
   const handleCancel = () => {
     setModalOpen(false);
@@ -28,10 +55,16 @@ function ModalCU(props) {
     }
   };
   const doSaveData = async (body) => {
+    const formData = new FormData();
+    formData.append("image", body.image);
+    formData.append("name", body.name);
+    formData.append("price", body.price);
+    formData.append("productType", body.productType);
+
     if (productId) {
-      await productService.updateProduct(body);
+      await productService.updateProduct(formData);
     } else {
-      await productService.createProduct(body);
+      await productService.createProduct(formData);
     }
     showMessage.success(
       `${productId ? "Update" : "Create"} product successfully`
@@ -49,9 +82,18 @@ function ModalCU(props) {
       title={productId ? "Update Product" : "Create Product"}
       open={isModalOpen}
       onCancel={handleCancel}
+      destroyOnClose
       footer={[
-        <Button onClick={handleCancel}>Cancel</Button>,
-        <Button onClick={handleOk} type="primary">
+        <Button onClick={handleCancel} key="cancel">
+          Cancel
+        </Button>,
+        <Button
+          onClick={handleOk}
+          type="primary"
+          htmlType="submit"
+          form="form-cu"
+          key="submit"
+        >
           Save
         </Button>,
       ]}
@@ -61,15 +103,48 @@ function ModalCU(props) {
         layout="vertical"
         size="large"
         autoComplete="off"
+        preserve={false}
+        scrollToFirstError={true}
+        id="form-cu"
         onFinish={doSaveData}
       >
-        <Form.Item label="Product Name" name="name" required>
-          <Input></Input>
+        <Form.Item
+          label="Product Name"
+          name="name"
+          required
+          rules={[
+            {
+              required: true,
+              message: "Product Name is required",
+            },
+          ]}
+        >
+          <Input placeholder="Nhập tên sản phẩm"></Input>
         </Form.Item>
-        <Form.Item label="Price" name="price" required>
-          <Input></Input>
+        <Form.Item
+          label="Price"
+          name="price"
+          required
+          rules={[
+            {
+              required: true,
+              message: "Price is required",
+            },
+          ]}
+        >
+          <Input placeholder="Nhập giá sản phẩm"></Input>
         </Form.Item>
-        <Form.Item label="Product Type" name="productType" required>
+        <Form.Item
+          label="Product Type"
+          name="productType"
+          required
+          rules={[
+            {
+              required: true,
+              message: "ProductType is required",
+            },
+          ]}
+        >
           <Select
             allowClear
             style={{
@@ -81,8 +156,17 @@ function ModalCU(props) {
             maxTagCount="responsive"
           ></Select>
         </Form.Item>
-        <Form.Item label="Link Image" name="image" required>
-          <Input></Input>
+        <Form.Item
+          label="Image"
+          name="image"
+          rules={[
+            {
+              required: fileSelect ? false : true,
+              message: !fileSelect ? "Image is required" : "",
+            },
+          ]}
+        >
+          <UploadFile fileSelect={getFileSelect} />
         </Form.Item>
       </Form>
     </Modal>

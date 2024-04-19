@@ -84,22 +84,21 @@ function ManageProduct() {
 
   const handleSearch = async (form) => {
     const body = {
-      page: page,
-      size: rowPerPage,
-      sortField: "createDate",
-      sortType: "desc",
+      pageIndex: page,
+      pageSize: rowPerPage,
       ...form,
     };
+    const { data } = await productService.searchProduct(body);
 
-    const { content, totalElements } = await productService.searchProduct(body);
-    const dataMap = content.map((item) => {
-      const createdDateStr = Utils.formatDateDDMMYYYY(item.createDate);
-      const priceStr = Utils.formatNumberWithComma(item.price || 0);
+    const dataMap = data.productDTOList.map((item) => {
+      const createdDateStr = Utils.formatDateDDMMYYYY(item.productDTOList);
+      const priceStr = Utils.formatNumberWithComma(Number(item.price) || 0);
       return { ...item, createdDateStr, priceStr };
     });
     setDataSource(dataMap);
-    setTotalElement(totalElements);
+    setTotalElement(data.totalElements);
   };
+
   const changePage = (page, pageSize) => {
     if (pageSize !== rowPerPage) {
       setPage(1);
@@ -155,7 +154,6 @@ function ManageProduct() {
         <Col span={8}>
           <Form.Item label="Product Type" name="productType">
             <Select
-              mode="multiple"
               allowClear
               style={{
                 width: "100%",

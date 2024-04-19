@@ -8,7 +8,7 @@ const productService = {
         return baseService.get(`${PRODUCT_URL}/get-all`);
     },
     createProduct(body) {
-        return baseService.post(`${PRODUCT_URL}/create`, body);
+        return baseService.postFile(`${PRODUCT_URL}/createProduct`, body);
     },
     deleteProduct(id) {
         return baseService.delete(`${PRODUCT_URL}/${id}`);
@@ -21,7 +21,7 @@ const productService = {
     },
     searchProduct(body) {
         return baseService.post(
-            `${PRODUCT_URL}/search`,
+            `${PRODUCT_URL}/searchProduct`,
             body
         );
     },
