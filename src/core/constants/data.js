@@ -12,6 +12,6 @@ export const ListDelivery = [
 ]
 
 export const lisStatus = [
-    { value: '\bOLD', label: 'Đã qua sử dụng' },
+    { value: 'OLD', label: 'Đã qua sử dụng' },
     { value: 'NEW', label: 'Mới' },
 ]
