@@ -5,4 +5,11 @@ const addTodoList = (payload) => {
     }
 }
 
-export { addTodoList }
+const removeItem = (payload) => {
+    return {
+        type: 'toDoList/remove',
+        payload: payload
+    }
+}
+
+export { addTodoList, removeItem }

@@ -13,11 +13,14 @@ const toDoReducer = (state = initState, action) => {
                 ]
             };
         }
+        case 'toDoList/remove': {
+            return {
+
+            }
+        }
         default: {
             return state;
         }
-
-
     }
 }
 export default toDoReducer;
