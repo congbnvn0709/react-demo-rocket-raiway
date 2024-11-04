@@ -13,12 +13,13 @@ const interceptAuth = (
             'Content-Type': contentType,
         },
         responseType,
-        paramsSerializer: {
-            serialize: (params) => queryString.stringify(params),
-        }
+        // paramsSerializer: {
+        //     serialize: (params) => queryString.stringify(params),
+        // }
     });
-
+    
     instance.interceptors.request.use((cf) => {
+        console.log('',instance.baseURL)
         const token = localStorage.getItem("accessToken");
         if (token && cf?.headers) {
             cf.headers['Authorization'] = 'Bearer ' + token;
