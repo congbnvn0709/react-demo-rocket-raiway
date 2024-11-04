@@ -12,13 +12,13 @@ function Login() {
   };
 
   const doLogin = async (data) => {
-    const res = await authService.login(data);
-    if (res) {
-      localStorage.setItem("auth", res.token);
-      navigate("/manage-product");
-    } else {
-      navigate("/login");
-    }
+    // const res = await authService.login(data);
+    // if (res) {
+    //   localStorage.setItem("auth", res.token);
+    //   navigate("/manage-product");
+    // } else {
+    //   navigate("/login");
+    // }
   };
   return (
     <div

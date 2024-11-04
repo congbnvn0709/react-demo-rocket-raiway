@@ -21,9 +21,9 @@ function Admin() {
   const { pathname } = useLocation();
   console.log(pathname);
   const auth = localStorage.getItem("auth");
-  if (!auth) {
-    return <Navigate to={"/login"} />;
-  }
+  // if (!auth) {
+  //   return <Navigate to={"/login"} />;
+  // }
   const {
     token: { colorBgContainer },
   } = theme.useToken();

@@ -7,7 +7,7 @@ const listTodoSlice = createSlice({
     name: 'listTodo',
     initialState: initState,
     reducers: {
-        addTodo: (state, action) => {
+        addTodo: (state, action) => { // name + action => listTodo/addTodo
             state.push(action.payload)
         },
         toggleTodoStatus: (state, action) => {
