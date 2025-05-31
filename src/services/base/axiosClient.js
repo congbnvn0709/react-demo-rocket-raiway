@@ -7,7 +7,8 @@ const interceptAuth = (
     responseType = 'json'
 ) => {
     const instance = axios.create({
-        baseURL: process.env.REACT_APP_API_URL,
+        // baseURL: process.env.REACT_APP_API_URL,
+        baseURL: 'http://localhost:3001/',
         headers: {
             'Accept-Language': 'en-US',
             'Content-Type': contentType,

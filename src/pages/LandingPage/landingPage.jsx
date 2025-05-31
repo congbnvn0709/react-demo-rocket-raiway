@@ -48,7 +48,7 @@ function LandingPage() {
       sortType,
     };
     // dispatch(searchProduct(body));
-    dispatch(getAllProduct());
+    dispatch(getAllProduct(body));
     setIsLoading(false);
   };
   return (

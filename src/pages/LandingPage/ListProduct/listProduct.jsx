@@ -195,14 +195,14 @@ function ListProduct() {
                           )?.label
                         }
                       </p>
-                      <p>
+                      {/* <p>
                         Danh mục:{" "}
                         {
                           listCategories.find(
                             (el) => el.value === item.productType
                           ).label
                         }
-                      </p>
+                      </p> */}
                     </div>
                   </Card>
                 </Col>

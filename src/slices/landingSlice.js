@@ -49,8 +49,8 @@ const landingSlice = createSlice({
             state.loading = 'idle';
             // state.lisProduct = action.payload.content;
             // state.totalElements = action.payload.totalElements;
-            state.lisProduct = action.payload;
-            state.totalElements = action.payload.length;
+            state.lisProduct = action.payload.data;
+            state.totalElements = action.payload.items;
         })
         // TODO:dựa vào status để phía UI biết được những request đang được request hay thành công
         //  TODO: dựa vào status để thêm icon loading
@@ -58,10 +58,10 @@ const landingSlice = createSlice({
 })
 export const { searchTextProduct, sortProduct, filterByListCheck, filterByPrice, onPageChange } = landingSlice.actions;
 
-export const getAllProduct = createAsyncThunk('product/searchProduct', async () => {
+export const getAllProduct = createAsyncThunk('product/searchProduct', async (body) => {
     // const { content, totalElements } = await productService.getAllProduct();
     // return { content, totalElements }
-    const res = await productService.getAllProduct();
+    const res = await productService.getAllProduct(body);
     return res;
 })
 

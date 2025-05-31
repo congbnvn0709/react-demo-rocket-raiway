@@ -1,0 +1,164 @@
+{
+  "products": [
+    {
+      "name": "iPhone 15 Pro Max",
+      "price": 33990000,
+      "shippingUnit": "Giao hàng nhanh",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/305659/iphone-15-pro-max-white-thumb-600x600.jpg"
+    },
+    {
+      "name": "Samsung Galaxy S24 Ultra",
+      "price": 31990000,
+      "shippingUnit": "VNPost",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/299034/samsung-galaxy-s24-ultra-1-2-600x600.jpg"
+    },
+    {
+      "name": "Xiaomi 14",
+      "price": 19990000,
+      "shippingUnit": "GHTK",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/313203/xiaomi-14-thumb-600x600.jpg"
+    },
+    {
+      "name": "OPPO Reno11 F 5G",
+      "price": 8990000,
+      "shippingUnit": "Ninja Van",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/317105/oppo-reno11-f-5g-xanh-600x600.jpg"
+    },
+    {
+      "name": "realme C67",
+      "price": 4990000,
+      "shippingUnit": "J&T Express",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/314121/realme-c67-vang-1-600x600.jpg"
+    },
+    {
+      "name": "vivo V30e 5G",
+      "price": 7990000,
+      "shippingUnit": "Giao hàng tiết kiệm",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/318118/vivo-v30e-nau-thumb-600x600.jpg"
+    },
+    {
+      "name": "iPhone 13",
+      "price": 17990000,
+      "shippingUnit": "GHN",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/228736/iphone-13-blue-600x600.jpg"
+    },
+    {
+      "name": "Samsung Galaxy A15",
+      "price": 4290000,
+      "shippingUnit": "Viettel Post",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/319008/samsung-galaxy-a15-4g-xanh-thumb-1-600x600.jpg"
+    },
+    {
+      "name": "iPhone SE 2022",
+      "price": 10990000,
+      "shippingUnit": "J&T Express",
+      "status": "out of stock",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/245545/iPhone-SE-2022-do-thumb-600x600.jpg"
+    },
+    {
+      "name": "Xiaomi Redmi Note 13",
+      "price": 4990000,
+      "shippingUnit": "Giao hàng nhanh",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/309812/xiaomi-redmi-note-13-thumb-600x600.jpg"
+    },
+    {
+      "name": "OPPO A58",
+      "price": 4690000,
+      "shippingUnit": "GHN",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/306829/oppo-a58-xanh-thumb-600x600.jpg"
+    },
+    {
+      "name": "realme 11 Pro+ 5G",
+      "price": 11990000,
+      "shippingUnit": "VNPost",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/310113/realme-11-pro-plus-thumb-600x600.jpg"
+    },
+    {
+      "name": "vivo Y18",
+      "price": 3290000,
+      "shippingUnit": "GHTK",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/318442/vivo-y18-xanh-thumb-600x600.jpg"
+    },
+    {
+      "name": "Samsung Galaxy Z Flip5",
+      "price": 21990000,
+      "shippingUnit": "Ninja Van",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/281570/samsung-galaxy-z-flip5-xanh-thumb-600x600.jpg"
+    },
+    {
+      "name": "iPhone 14 Plus",
+      "price": 23990000,
+      "shippingUnit": "Giao hàng tiết kiệm",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/250259/iphone-14-plus-blue-thumb-600x600.jpg"
+    },
+    {
+      "name": "Xiaomi 13T",
+      "price": 12990000,
+      "shippingUnit": "GHN",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/309843/xiaomi-13t-xanh-thumb-600x600.jpg"
+    },
+    {
+      "name": "OPPO Find N3 Flip",
+      "price": 19990000,
+      "shippingUnit": "Viettel Post",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/313601/oppo-find-n3-flip-thumb-600x600.jpg"
+    },
+    {
+      "name": "realme C53",
+      "price": 3590000,
+      "shippingUnit": "J&T Express",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/309827/realme-c53-vang-thumb-600x600.jpg"
+    },
+    {
+      "name": "vivo Y36",
+      "price": 5990000,
+      "shippingUnit": "Giao hàng nhanh",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/308139/vivo-y36-vang-thumb-600x600.jpg"
+    },
+    {
+      "name": "Samsung Galaxy A05",
+      "price": 2990000,
+      "shippingUnit": "Ninja Van",
+      "status": "available",
+      "productType": "Điện thoại",
+      "image": "https://cdn.tgdd.vn/Products/Images/42/309815/samsung-galaxy-a05-thumb-600x600.jpg"
+    }
+  ]
+}

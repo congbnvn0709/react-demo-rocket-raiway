@@ -3,8 +3,8 @@ import baseService from "./base/baseService";
 const PRODUCT_URL = "/product";
 
 const productService = {
-    getAllProduct() {
-        return baseService.get(`/Products`);
+    getAllProduct(body) {
+        return baseService.get(`/products?_page=${body.page}&_per_page=${body.size}`);
     },
     createProduct(body) {
         return baseService.post(`${PRODUCT_URL}/create`, body);
